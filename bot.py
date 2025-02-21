@@ -28,7 +28,6 @@ logging.basicConfig(
 load_dotenv()
 TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 if not TOKEN:
-    logging.critical("TELEGRAM_BOT_TOKEN is not set in the .env file!")
     raise ValueError("TELEGRAM_BOT_TOKEN is not set in the .env file!")
 
 bot = telebot.TeleBot(TOKEN)
