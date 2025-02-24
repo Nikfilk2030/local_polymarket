@@ -17,7 +17,7 @@ import lib.chip_giver as chip_giver
 
 
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format="%(asctime)s - %(levelname)s - %(message)s [%(filename)s:%(lineno)d]",
     handlers=[
         logging.FileHandler("bot.log"),
@@ -44,7 +44,6 @@ def handle_message(message):
 if __name__ == "__main__":
     # db.init_db()
 
-    logging.info("Bot is running...")
     try:
         # logging.info("Starting birthday ping thread...")
         # birthday_thread = threading.Thread(target=process_birthday_pings, daemon=True)
@@ -54,13 +53,14 @@ if __name__ == "__main__":
         # log_cleaner_thread = threading.Thread(target=log_cleaner, daemon=True)
         # log_cleaner_thread.start()
 
-        bot.polling(none_stop=True, timeout=60, long_polling_timeout=60)
-
         logging.info("Starting chip giver thread...")
         chip_giver_thread = threading.Thread(
             target=chip_giver.process_free_chip_giver(bot), daemon=True
         )
         chip_giver_thread.start()
+
+        logging.info("Starting bot polling...")
+        bot.polling(none_stop=True, timeout=60, long_polling_timeout=60)
 
     except KeyboardInterrupt:
         logging.info("Shutting down bot gracefully...")

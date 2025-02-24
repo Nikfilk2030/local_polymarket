@@ -25,9 +25,10 @@ def give_new_day_chips(bot: TeleBot) -> None:
 
 def process_free_chip_giver(bot: TeleBot) -> None:
     while True:
-        minutes = 5
+        minutes = 1
         time.sleep(utils.SECONDS_IN_MINUTE * minutes)
         try:
+            logging.debug("Trying to give new portion of free chips")  # TODO remove
             give_new_day_chips(bot)
         except Exception as e:
             logging.error(f"Error in free chip giver: {e}")
